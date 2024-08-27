@@ -15,7 +15,7 @@ jobs:
       - name: get code from remote repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CONFIG_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           submodules: true
 
       - name: setup jdk 17
