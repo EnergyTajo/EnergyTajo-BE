@@ -21,8 +21,8 @@ jobs:
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
         with:
-          host: 144.24.88.177
-          username: energytajo_user
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
           key_path: /tmp/ssh_key
           port: 22
           source: "./resources/config/main/application.yml"
