@@ -17,6 +17,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > /tmp/ssh_key
           chmod 600 /tmp/ssh_key
+        shell: bash
 
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
