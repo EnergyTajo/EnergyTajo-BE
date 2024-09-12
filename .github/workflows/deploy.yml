@@ -18,9 +18,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > /tmp/ssh_key
           chmod 600 /tmp/ssh_key
 
-      - name: Test SSH Connection  # SSH 연결을 테스트
+      - name: Test SSH Key File
         run: |
-          ssh -i /tmp/ssh_key -o StrictHostKeyChecking=no ubuntu@144.24.88.177 "echo 'SSH connection successful'"
+          ls -l /tmp/ssh_key
+          cat /tmp/ssh_key
 
       - name: Copy files via SCP
         uses: appleboy/scp-action@master
