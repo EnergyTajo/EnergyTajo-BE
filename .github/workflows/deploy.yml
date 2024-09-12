@@ -15,7 +15,7 @@ jobs:
 
       - name: Decode SSH Key
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 --decode > /tmp/ssh_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/ssh_key
           chmod 600 /tmp/ssh_key
 
       - name: Test SSH Key File
