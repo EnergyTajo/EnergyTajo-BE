@@ -1,0 +1,34 @@
+name: Deploy via SCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Decode SSH Key
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/ssh_key
+          chmod 600 /tmp/ssh_key
+
+      - name: Test SSH Key File
+        run: |
+          ls -l /tmp/ssh_key
+          cat /tmp/ssh_key
+
+      - name: Copy files via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key_path: /tmp/ssh_key
+          port: 22
+          source: "./resources/config/main/application.yml"
+          target: "/home/ubuntu/energytajo/config/"
