@@ -41,14 +41,19 @@ public class User extends BaseTimeEntity {
 
     @Comment("True-삭제, False-삭제 아님")
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
-    private Boolean isDeleted;
+    private boolean isDeleted;
+
+    @Column(nullable = false)
+    private boolean consentStatus;
 
     @Column(nullable = false)
     private Boolean locationAgreed;
 
+    @Comment("DB - default 값 0")
     @Column(nullable = false)
     private Integer points;
 
+    @Comment("DB - default 값 0")
     @Column(nullable = false)
     private Float totPowerGen;
 
