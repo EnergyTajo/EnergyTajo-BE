@@ -1,5 +1,8 @@
 package com.energy.tajo.user.service;
 
+import static com.energy.tajo.global.exception.ErrorCode.ID_IN_USE;
+
+import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.dto.request.UserCreateRequest;
 import com.energy.tajo.user.repository.UserRepository;
@@ -16,9 +19,12 @@ public class UserService {
     @Transactional
     public User signup(UserCreateRequest userCreateRequest) {
 
-        User user = User.of(userCreateRequest.uuid(), userCreateRequest.pw(), userCreateRequest.name(),
-            userCreateRequest.tell(), userCreateRequest.email());
+        if (userRepository.existsByUuid(userCreateRequest.uuid())){
+            throw new EnergyException(ID_IN_USE);
+        }
 
+        User user = User.of(userCreateRequest.uuid(), userCreateRequest.pw(), userCreateRequest.name(),
+            userCreateRequest.phoneNum(), userCreateRequest.email(), userCreateRequest.consentStatus());
         return userRepository.save(user);
     }
 }

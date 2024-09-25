@@ -10,3 +10,5 @@ spring:
         format_sql: true
         show_sql: true
     open-in-view: false
+  config:
+    import: classpath:config/application-twilio.yml

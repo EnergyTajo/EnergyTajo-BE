@@ -10,18 +10,18 @@ public class UserCreateResponse {
 
     private final String name;
 
-    private final String tell;
+    private final String phoneNum;
 
     private final String email;
 
-    private UserCreateResponse(final Long id, final String name, final String tell, final String email) {
+    private UserCreateResponse(final Long id, final String name, final String phoneNum, final String email) {
         this.id = id;
         this.name = name;
-        this.tell = tell;
+        this.phoneNum = phoneNum;
         this.email = email;
     }
 
     public static UserCreateResponse from(final User user) {
-        return new UserCreateResponse(user.getId(), user.getName(), user.getTell(), user.getEmail());
+        return new UserCreateResponse(user.getId(), user.getName(), user.getPhoneNum(), user.getEmail());
     }
 }

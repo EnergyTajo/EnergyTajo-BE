@@ -12,6 +12,8 @@ public enum ErrorCode {
     // 400 Bad Request
     INVALID_INPUT_VALUE(BAD_REQUEST, "유효하지 않은 입력 값입니다."),
     INVALID_REQUEST(BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_VERIFICATION_CODE(BAD_REQUEST, "인증 번호가 일치하지 않습니다."),
+    ID_IN_USE(BAD_REQUEST, "사용중인 ID 입니다."),
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),

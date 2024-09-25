@@ -37,7 +37,7 @@ public class User extends BaseTimeEntity {
     private String uuid;
 
     @Column(nullable = false)
-    private String tell;
+    private String phoneNum;
 
     @Comment("True-삭제, False-삭제 아님")
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
@@ -71,14 +71,21 @@ public class User extends BaseTimeEntity {
     }
 
     private User(final String name, final String pw, final String email,
-                 final String uuid, final String tell, final Boolean locationAgreed){
+                 final String uuid, final String phoneNum, final Boolean locationAgreed){
 
         this.name = name;
         this.pw = encode(pw);
         this.email = email;
         this.uuid = uuid;
-        this.tell = tell;
+        this.phoneNum = phoneNum;
         this.isDeleted = false;
         this.locationAgreed = locationAgreed;
     }
+
+    public static User of(final String uuid, final String pw, final String name,
+                          final String phoneNum, final String email, final Boolean consentStatus) {
+
+        return new User(name, pw, email, uuid, phoneNum, consentStatus);
+    }
+
 }

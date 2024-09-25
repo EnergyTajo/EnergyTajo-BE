@@ -1,7 +1,7 @@
 spring:
   config:
     import:
-      - classpath:config/application-db.properties
+      - classpath:config/application-db.yml
   datasource:
     url: ${spring.datasource.url}
     username: ${spring.datasource.username}

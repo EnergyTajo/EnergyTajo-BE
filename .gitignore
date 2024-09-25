@@ -122,3 +122,6 @@ gradle-app.setting
 
 ### binary ###
 /bin/
+
+# Ignore config directory
+config/
