@@ -2,6 +2,7 @@ spring:
   profiles:
     include:
       - datasource
+    active: datasource, twilio
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,3 +13,9 @@ spring:
     open-in-view: false
   config:
     import: classpath:config/application-twilio.yml
+
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.beans.factory.support: DEBUG
+    org.springframework.context.annotation: DEBUG

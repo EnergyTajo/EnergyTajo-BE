@@ -13,14 +13,14 @@ public record UserCreateRequest(
     @NotBlank(message = "이름를 입력해주세요.")
     String name,
 
-    @NotBlank(message = "전화번호를 입력해주세요.")
-    String phoneNum,
-
     @NotBlank(message = "이메일을 입력해주세요.")
     String email,
 
+    @NotBlank(message = "전화번호를 입력해주세요")
+    String phone_num,
+
     @NotNull(message = "(필수)약관 동의 여부를 확인해주세요")
-    Boolean consentStatus
+    Boolean consent_status
     ) {
 
 }

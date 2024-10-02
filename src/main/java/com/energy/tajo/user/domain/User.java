@@ -1,8 +1,6 @@
 package com.energy.tajo.user.domain;
 
-
 import static com.energy.tajo.global.encode.PasswordEncoderSHA256.encode;
-
 import com.energy.tajo.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 @Entity
@@ -36,7 +35,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "CHAR(50)")
     private String uuid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "phone_num")
     private String phoneNum;
 
     @Comment("True-삭제, False-삭제 아님")
@@ -47,15 +46,16 @@ public class User extends BaseTimeEntity {
     private boolean consentStatus;
 
     @Column(nullable = false)
-    private Boolean locationAgreed;
+    private boolean locationAgreed;
+
+    @Comment("DB - default 값 0")
+    @Setter
+    @Column(nullable = false)
+    private int points = 0;
 
     @Comment("DB - default 값 0")
     @Column(nullable = false)
-    private Integer points;
-
-    @Comment("DB - default 값 0")
-    @Column(nullable = false)
-    private Float totPowerGen;
+    private float totPowerGen = 0;
 
     @Comment("카드 정보 = Null 값 (카드 등록 시 입력되기 때문)")
     @Column(nullable = true, length = 16)
@@ -67,25 +67,19 @@ public class User extends BaseTimeEntity {
     @Column(nullable = true, length = 3)
     private String cvc;
 
-    protected User(){
+    protected User() {
     }
 
-    private User(final String name, final String pw, final String email,
-                 final String uuid, final String phoneNum, final Boolean locationAgreed){
-
+    private User(final String name, final String pw, final String email, final String uuid, final Boolean consentStatus) {
         this.name = name;
         this.pw = encode(pw);
         this.email = email;
         this.uuid = uuid;
-        this.phoneNum = phoneNum;
         this.isDeleted = false;
-        this.locationAgreed = locationAgreed;
+        this.consentStatus = consentStatus;
     }
 
-    public static User of(final String uuid, final String pw, final String name,
-                          final String phoneNum, final String email, final Boolean consentStatus) {
-
-        return new User(name, pw, email, uuid, phoneNum, consentStatus);
+    public static User of(final String uuid, final String pw, final String name, final String email, final Boolean consentStatus) {
+        return new User(name, pw, email, uuid, consentStatus);
     }
-
 }

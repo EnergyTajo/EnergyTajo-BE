@@ -1,47 +1,46 @@
 package com.energy.tajo.auth.controller;
 
-import static com.energy.tajo.global.exception.ErrorCode.INVALID_VERIFICATION_CODE;
-
+import com.energy.tajo.auth.dto.request.VerifyCheckRequest;
+import com.energy.tajo.auth.dto.request.VerifyCodeRequest;
 import com.energy.tajo.auth.service.TwilioService;
-import com.energy.tajo.global.exception.EnergyException;
-import jakarta.servlet.http.HttpSession;
+import com.energy.tajo.global.success.SuccessCode;
+import jakarta.validation.Valid;
 import java.util.Map;
-import java.util.Random;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
+@Validated
+@RequestMapping("/api/auth/verify")
 public class VerificationController {
 
     private final TwilioService twilioService;
-    private final Random random = new Random();
+    private static final String MESSAGE_KEY = "message";
 
     public VerificationController(TwilioService twilioService) {
         this.twilioService = twilioService;
     }
 
-    @PostMapping("/verify/phoneNum")
-    public ResponseEntity<Map<String, String>> sendVerificationCode(@RequestParam String phoneNumber, HttpSession session) {
-
-        String verificationCode = String.format("%06d", random.nextInt(999999));
-        session.setAttribute("verificationCode", verificationCode);
-        session.setMaxInactiveInterval(60);  // 세션 유효 시간 - 60초
-        twilioService.sendVerificationCode(phoneNumber);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    // 인증 코드 전송
+    @PostMapping("/sendcode")
+    public ResponseEntity<Map<String, String>> sendVerificationCode(@Valid @RequestBody VerifyCodeRequest request) {
+        try {
+            twilioService.sendVerificationCode(request.phoneNum());
+            return ResponseEntity.ok(Map.of(MESSAGE_KEY, SuccessCode.CODE_SENT.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(MESSAGE_KEY, e.getMessage()));
+        }
     }
 
-    @PostMapping("/verify/code")
-    public ResponseEntity<Map<String, String>> verifyCode(@RequestParam String inputCode, HttpSession session) {
-        String actualCode = (String) session.getAttribute("verificationCode");
-
-        if (actualCode != null && actualCode.equals(inputCode)) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            throw new EnergyException(INVALID_VERIFICATION_CODE);
-        }
+    // 코드 일치 여부 판단
+    @PostMapping("/checkcode")
+    public ResponseEntity<Object> verificationCheck(@RequestBody VerifyCheckRequest verifyCheckRequest) {
+        return twilioService.verificationCheck(verifyCheckRequest);
     }
 }
