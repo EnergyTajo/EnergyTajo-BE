@@ -28,7 +28,7 @@ public class PasswordEncoderSHA256 {
 
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            log.error("Don't support algorithm: {}", ALGORITHM);
+            log.error("Don't support algorithm: {}", ALGORITHM);    //
             throw new EnergyException(PASSWORD_ENCRYPTION_ERROR);
         }
     }

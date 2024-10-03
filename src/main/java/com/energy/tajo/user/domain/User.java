@@ -11,13 +11,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
+
 @Entity
 @Getter
+@Setter
 public class User extends BaseTimeEntity {
-
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-    private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=\\S+$).{8,20}$";
-    private static final String NAME_REGEX = "^[가-힣]{2,10}$";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +47,6 @@ public class User extends BaseTimeEntity {
     private boolean locationAgreed;
 
     @Comment("DB - default 값 0")
-    @Setter
     @Column(nullable = false)
     private int points = 0;
 
