@@ -6,13 +6,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         format_sql: true
         show_sql: true
     open-in-view: false
   config:
-    import: classpath:config/application-twilio.yml
+    import:
+      - classpath:/application-datasource.yml
+      - classpath:config/application-twilio.yml
 
 logging:
   level:
