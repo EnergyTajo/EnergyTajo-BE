@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(AuthController.class); //
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
 
     @PostMapping("/sign-up")
