@@ -45,7 +45,7 @@ public class VerificationController {
                 userService.setVerifiedPhoneNumber(e164FormatPhoneNumber);
                 return ResponseEntity.ok("인증 번호 검증 성공");
             } else {
-                throw new EnergyException(ErrorCode.VERIFICATION_FAILED);
+                throw new EnergyException(ErrorCode.INVALID_VERIFICATION_CODE);
             }
         } catch (Exception e) {
             throw new EnergyException(ErrorCode.VERIFICATION_FAILED);
