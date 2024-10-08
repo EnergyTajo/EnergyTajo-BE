@@ -130,4 +130,4 @@ config/
 src/main/resources/config/
 
 # 하지만 특정 파일은 제외
-!src/main/java/com/energy/tajo/auth/config/SecurityConfig.java
+!src/main/java/com/energy/tajo/config/SecurityConfig.java
