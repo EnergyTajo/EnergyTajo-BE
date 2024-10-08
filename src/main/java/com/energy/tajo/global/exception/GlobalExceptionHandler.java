@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -54,5 +55,10 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleRuntimeException(RuntimeException exception) {
         log.error("UnExpectedException: {}", exception.getMessage());
         return ErrorResponse.from(SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public ResponseEntity<String> handleMissingRequestHeaderException(MissingRequestHeaderException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("필수 요청 헤더가 누락되었습니다: " + e.getHeaderName());
     }
 }
