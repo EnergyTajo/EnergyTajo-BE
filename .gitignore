@@ -123,9 +123,6 @@ gradle-app.setting
 ### binary ###
 /bin/
 
-# Ignore config directory
-config/
-
 # resources 하위의 config 폴더만 무시
 src/main/resources/config/
 
