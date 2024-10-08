@@ -53,6 +53,9 @@ public class AuthController {
         if(!userService.isSmsVerified()){
             throw new EnergyException(ErrorCode.PHONE_NUMBER_NOT_VERIFIED);
         }
+        if (!request.consentStatus()) {
+            throw new EnergyException(ErrorCode.CONSENT_REQUIRED);
+        }
 
         userService.validateName(request.name());
         userService.validateEmail(request.email());
@@ -69,6 +72,4 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getUuid(), "user_flag");
         return ResponseEntity.ok(token);
     }
-
-
 }

@@ -27,6 +27,7 @@ public enum ErrorCode {
     ID_NOT_FOUND(BAD_REQUEST, "ID를 찾을 수 없습니다."),
     VERIFICATION_CODE_EXPIRED(BAD_REQUEST,"인증코드 만료"),
     USER_NOT_FOUND(BAD_REQUEST,"User를 찾을 수 없습니다."),
+    CONSENT_REQUIRED(BAD_REQUEST,"(필수) 약관 동의가 되지 않았습니다."),
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),
