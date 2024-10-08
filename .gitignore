@@ -125,3 +125,9 @@ gradle-app.setting
 
 # Ignore config directory
 config/
+
+# resources 하위의 config 폴더만 무시
+src/main/resources/config/
+
+# 하지만 특정 파일은 제외
+!src/main/java/com/energy/tajo/auth/config/SecurityConfig.java
