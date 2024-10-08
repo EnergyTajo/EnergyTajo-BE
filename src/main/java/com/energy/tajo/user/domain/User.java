@@ -1,12 +1,12 @@
 package com.energy.tajo.user.domain;
 
 import static com.energy.tajo.global.encode.PasswordEncoderSHA256.encode;
+
 import com.energy.tajo.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
@@ -15,11 +15,12 @@ import org.hibernate.annotations.Comment;
 @Entity
 @Getter
 @Setter
+@Table(name = "user")
 public class User extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "uuid", nullable = false, columnDefinition = "CHAR(50)")
+    private String uuid;
 
     @Column(nullable = false)
     private String name;
@@ -29,9 +30,6 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false, length = 64)
     private String email;
-
-    @Column(nullable = false, columnDefinition = "CHAR(50)")
-    private String uuid;
 
     @Column(nullable = false, name = "phone_num")
     private String phoneNum;

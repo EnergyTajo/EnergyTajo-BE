@@ -46,8 +46,4 @@ public class TwilioVerify {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public void markAsVerified() {
-        this.isVerified = true;
-    }
 }

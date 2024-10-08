@@ -24,7 +24,7 @@ public enum ErrorCode {
     ALREADY_VERIFIED(BAD_REQUEST, "이미 인증되었습니다."),
     TWILIO_ERROR(BAD_REQUEST, "Twilio 서비스 오류가 발생했습니다."),
     ID_DUPLICATION_CHECK_NOT_DONE(BAD_REQUEST,"ID 중복 체크가 되지 않았습니다."),
-    ID_NOT_FOUND(BAD_REQUEST, ""),
+    ID_NOT_FOUND(BAD_REQUEST, "ID를 찾을 수 없습니다."),
     VERIFICATION_CODE_EXPIRED(BAD_REQUEST,"인증코드 만료"),
     USER_NOT_FOUND(BAD_REQUEST,"User를 찾을 수 없습니다."),
 

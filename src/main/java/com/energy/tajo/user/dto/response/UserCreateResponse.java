@@ -6,19 +6,19 @@ import lombok.Getter;
 @Getter
 public class UserCreateResponse {
 
-    private final Long id;
+    private final String uuid;
 
     private final String name;
 
     private final String email;
 
-    private UserCreateResponse(final Long id, final String name, final String email) {
-        this.id = id;
+    private UserCreateResponse(final String uuid, final String name, final String email) {
+        this.uuid = uuid;
         this.name = name;
         this.email = email;
     }
 
     public static UserCreateResponse from(final User user) {
-        return new UserCreateResponse(user.getId(), user.getName(),user.getEmail());
+        return new UserCreateResponse(user.getUuid(), user.getName(),user.getEmail());
     }
 }
