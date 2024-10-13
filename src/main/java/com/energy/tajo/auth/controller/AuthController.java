@@ -1,5 +1,9 @@
 package com.energy.tajo.auth.controller;
 
+import com.energy.tajo.auth.dto.request.RefreshTokenRequest;
+import com.energy.tajo.auth.dto.request.SignInRequest;
+import com.energy.tajo.auth.dto.response.TokenResponse;
+import com.energy.tajo.auth.service.AuthenticationService;
 import com.energy.tajo.global.encode.PasswordEncoderSHA256;
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
@@ -26,8 +30,9 @@ public class AuthController {
     private final UserService userService;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final AuthenticationService authenticationService;
 
-    // ID 중복 체크 API
+    // ID 중복 체크
     @GetMapping("/check-id")
     public ResponseEntity<String> checkIdDuplicate(@RequestParam String uuid) {
         if (userRepository.existsByUuid(uuid)) {
@@ -39,7 +44,7 @@ public class AuthController {
         }
     }
 
-    // 회원가입 api
+    // 회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<String> signup(@RequestBody UserCreateRequest request) {
 
@@ -72,4 +77,25 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getUuid(), "user_flag");
         return ResponseEntity.ok(token);
     }
+
+    // 로그인
+    @PostMapping("/sign-in")
+    public ResponseEntity<TokenResponse> login(@RequestBody SignInRequest signInRequest) {
+        TokenResponse tokenResponse = authenticationService.login(signInRequest.uuid(), signInRequest.pw());
+        return ResponseEntity.ok(tokenResponse);
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        return ResponseEntity.noContent().build();
+    }
+
+    // 토큰 갱신
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponse> refreshAccessToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        TokenResponse tokenResponse = authenticationService.refreshAccessToken(refreshTokenRequest.refreshToken());
+        return ResponseEntity.ok(tokenResponse);
+    }
+
 }

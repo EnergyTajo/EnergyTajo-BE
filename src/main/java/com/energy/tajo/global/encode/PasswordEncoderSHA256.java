@@ -37,3 +37,4 @@ public class PasswordEncoderSHA256 {
         return encode(rawPassword).equals(encodedPassword);
     }
 }
+
