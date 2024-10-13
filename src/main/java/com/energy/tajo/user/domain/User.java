@@ -1,7 +1,5 @@
 package com.energy.tajo.user.domain;
 
-import static com.energy.tajo.global.encode.PasswordEncoderSHA256.encode;
-
 import com.energy.tajo.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -67,7 +65,7 @@ public class User extends BaseTimeEntity {
 
     private User(final String name, final String pw, final String email, final String uuid, final Boolean consentStatus) {
         this.name = name;
-        this.pw = encode(pw);
+        this.pw = pw;
         this.email = email;
         this.uuid = uuid;
         this.isDeleted = false;
