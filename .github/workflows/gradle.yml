@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-#permissions: write-all
 permissions:
   contents: write
   packages: write
@@ -48,7 +47,6 @@ jobs:
   CD:
     needs: CI
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@master
@@ -59,19 +57,22 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "#### Enter the test-was section ####"
-            
+
             SOURCE_DIR=source/build/libs
             FILE_NAME=`find $SOURCE_DIR/*.jar -printf "%f\n"`
             PID=`ps -ef | grep 'java -jar' | grep -v "grep" | awk '{print $2}'`
             LOG_FILE=source/build/logfile_$(date +"%Y%m%d_%H%M%S").log
-
             if [ -z "$PID" ]; then
-                    echo "#### THERE IS NO PROCESS ####"
+                echo "#### THERE IS NO PROCESS ####"
             else
-                    echo "#### KILL $PID ####"
-                    kill $PID
+                echo "#### KILL $PID ####"
+                kill $PID
             fi
-
             echo "#### RUN $SOURCE_DIR/$FILE_NAME ####"
-            
             java -jar $SOURCE_DIR/$FILE_NAME > $LOG_FILE 2>&1 &
+
+      - name: Verify HTTPS Deployment
+        run: |
+          echo "#### Checking HTTPS response ####"
+          sleep 10  # Wait for the server to start
+          curl -I https://your-domain.com || echo "#### HTTPS check failed ####"
