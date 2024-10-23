@@ -1,8 +1,8 @@
 spring:
   profiles:
     include:
-      - datasource
-    active: datasource, twilio, secret
+    - datasource
+    active: datasource, twilio, secrets
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,6 +17,7 @@ spring:
   config:
     import:
       - classpath:/application-datasource.yml
+      - classpath:/application-secrets.yml
       - classpath:config/application-twilio.yml
 
 logging:
