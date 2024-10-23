@@ -47,8 +47,8 @@ public class User extends BaseTimeEntity {
     private int points = 0;
 
     @Comment("DB - default 값 0")
-    @Column(nullable = false)
-    private float totPowerGen = 0;
+    @Column(nullable = false, name = "tot_power_gen")
+    private int totPowerGen = 0;
 
     @Comment("카드 정보 = Null 값 (카드 등록 시 입력되기 때문)")
     @Column(nullable = true, length = 16)

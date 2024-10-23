@@ -31,6 +31,10 @@ public enum ErrorCode {
     EXPIRED_TOKEN(BAD_REQUEST, "만료된 토큰 입니다."),
     INVALID_PW(BAD_REQUEST,"유효하지 않은 비밀번호 입니다."),
     INVALID_REFRESH_TOKEN(BAD_REQUEST,"유효하지 않은 토큰 입니다."),
+    RIDE_NOT_FOUND(BAD_REQUEST, "이용 기록을 찾을 수 없습니다"),
+    BICYCLE_ALREADY_IN_USE(BAD_REQUEST, "사용 중인 자전거입니다."),
+    BICYCLE_NOT_FOUND(BAD_REQUEST, "자전거를 찾을 수 없습니다."),
+    INVALID_QR_CODE(BAD_REQUEST, "올바르지 않은 QR 코드가 입니다."),
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),

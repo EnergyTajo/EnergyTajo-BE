@@ -3,17 +3,22 @@ package com.energy.tajo.auth.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import org.slf4j.Logger;
 
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @Value("${jwt.access.secret}")
     private String jwtAccessTokenSecret;
@@ -70,4 +75,13 @@ public class JwtTokenProvider {
     public String extractUuidFromRefreshToken(String token) {
         return extractUuidFromToken(token, jwtRefreshTokenSecret);
     }
+
+
+
+    @PostConstruct
+    public void checkSecrets() {
+        logger.info("Access Token Secret: {}", jwtAccessTokenSecret != null ? jwtAccessTokenSecret : "null");
+        logger.info("Refresh Token Secret: {}", jwtRefreshTokenSecret != null ? jwtRefreshTokenSecret : "null");
+    }
+
 }
