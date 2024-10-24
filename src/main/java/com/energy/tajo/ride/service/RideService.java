@@ -6,11 +6,14 @@ import com.energy.tajo.bicycle.service.BicycleService;
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
 import com.energy.tajo.ride.domain.Ride;
+import com.energy.tajo.ride.dto.response.RideUsageHistory;
 import com.energy.tajo.ride.repository.RideRepository;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.repository.UserRepository;
 import com.energy.tajo.user.service.UserService;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.Duration;
@@ -113,5 +116,14 @@ public class RideService {
     // 10Wh = 1 포인트
     private int calculatePoints(int powerGenerated) {
         return powerGenerated / 10;
+    }
+
+
+    // 이용 내역 출력
+    public List<RideUsageHistory> getRideUsageHistory(String userUuid) {
+        List<Ride> rides = rideRepository.findAllByUserIdOrderByStartRideDateDesc(userUuid);
+        return rides.stream()
+            .map(RideUsageHistory::new)
+            .collect(Collectors.toList());
     }
 }
