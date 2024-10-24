@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serial;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
@@ -14,7 +16,9 @@ import org.hibernate.annotations.Comment;
 @Getter
 @Setter
 @Table(name = "user")
-public class User extends BaseTimeEntity {
+public class User extends BaseTimeEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "uuid", nullable = false, columnDefinition = "CHAR(50)")

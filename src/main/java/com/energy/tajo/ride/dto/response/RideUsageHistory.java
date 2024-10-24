@@ -25,9 +25,13 @@ public class RideUsageHistory {
 
     private String formatDuration(LocalDateTime start, LocalDateTime end) {
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        String startTimeStr = start.format(timeFormatter);
+        String endTimeStr = end.format(timeFormatter);
         long totalMinutes = java.time.Duration.between(start.withSecond(0).withNano(0), end.withSecond(0).withNano(0)).toMinutes();
         long hours = totalMinutes / 60;
         long minutes = totalMinutes % 60;
-        return hours + "시간 " + minutes + "분";
+
+        return startTimeStr + "~" + endTimeStr + "(" + (hours > 0 ? hours + "시간 " : "") + minutes + "분)";
     }
 }

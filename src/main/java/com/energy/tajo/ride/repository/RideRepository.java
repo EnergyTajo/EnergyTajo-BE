@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RideRepository extends JpaRepository<Ride, Long> {
 
-    @Query("SELECT r FROM Ride r WHERE r.userId = :userId ORDER BY r.startRideDate DESC")
+    @Query("SELECT r FROM Ride r WHERE r.userId = :userId ORDER BY r.startRideDate DESC, r.startTime DESC")
     List<Ride> findAllByUserIdOrderByStartRideDateDesc(String userId);
 }
