@@ -31,7 +31,6 @@ public class JwtTokenProvider {
 
     private final Key secretKey;
 
-    // Constructor for secret key setup
     public JwtTokenProvider(@Value("${jwt.access.secret}") String accessSecret) {
         this.secretKey = Keys.hmacShaKeyFor(accessSecret.getBytes(StandardCharsets.UTF_8));
     }
