@@ -54,16 +54,6 @@ public class User extends BaseTimeEntity implements Serializable {
     @Column(nullable = false, name = "tot_power_gen")
     private int totPowerGen = 0;
 
-    @Comment("카드 정보 = Null 값 (카드 등록 시 입력되기 때문)")
-    @Column(nullable = true, length = 16)
-    private String cardNum;
-
-    @Column(nullable = true, length = 5)
-    private String validThru;
-
-    @Column(nullable = true, length = 3)
-    private String cvc;
-
     protected User() {
     }
 

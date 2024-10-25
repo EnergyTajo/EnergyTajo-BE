@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class RideResponseDto {
+public class RideResponse {
     private String bicycleId;
     private String startRideDate;
     private String startTime;
@@ -24,7 +24,7 @@ public class RideResponseDto {
     private int previousPowerGenerated;
     private String userName;
 
-    public RideResponseDto(Ride ride, User user) {
+    public RideResponse(Ride ride, User user) {
         this.bicycleId = ride.getBicycle().getBicycleId();
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
