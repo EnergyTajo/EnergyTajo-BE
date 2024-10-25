@@ -45,7 +45,7 @@ public class JwtTokenProvider {
         return generateToken(uuid, jwtRefreshTokenSecret, jwtRefreshTokenExpirationInMs);
     }
 
-    private String generateToken(String uuid, String secretKeyString, long expirationInMs) {
+    public String generateToken(String uuid, String secretKeyString, long expirationInMs) {
         final Date now = new Date();
         final Date expiryDate = new Date(now.getTime() + expirationInMs);
         final SecretKey generatedSecretKey = new SecretKeySpec(secretKeyString.getBytes(StandardCharsets.UTF_8),

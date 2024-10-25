@@ -3,11 +3,11 @@ package com.energy.tajo.auth.controller;
 import com.energy.tajo.auth.dto.request.RefreshTokenRequest;
 import com.energy.tajo.auth.dto.request.SignInRequest;
 import com.energy.tajo.auth.dto.response.TokenResponse;
+import com.energy.tajo.auth.jwt.JwtTokenProvider;
 import com.energy.tajo.auth.service.AuthenticationService;
 import com.energy.tajo.global.encode.PasswordEncoderSHA256;
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
-import com.energy.tajo.security.JwtUtil;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.dto.request.UserCreateRequest;
 import com.energy.tajo.user.repository.UserRepository;
@@ -32,8 +32,8 @@ public class AuthController {
 
     private final UserService userService;
     private final UserRepository userRepository;
-    private final JwtUtil jwtUtil;
     private final AuthenticationService authenticationService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // ID 중복 체크
     @GetMapping("/check-id")
@@ -58,7 +58,7 @@ public class AuthController {
         if (!userService.isIdChecked()) {
             throw new EnergyException(ErrorCode.ID_DUPLICATION_CHECK_NOT_DONE);
         }
-        if(!userService.isSmsVerified()){
+        if (!userService.isSmsVerified()) {
             throw new EnergyException(ErrorCode.PHONE_NUMBER_NOT_VERIFIED);
         }
         if (!request.consentStatus()) {
@@ -77,9 +77,10 @@ public class AuthController {
         userRepository.save(user);
 
         // JWT 생성
-        String token = jwtUtil.generateToken(user.getUuid(), "user_flag");
+        String token = jwtTokenProvider.generateAccessToken(user.getUuid());
         return ResponseEntity.ok(token);
     }
+
 
     // 로그인
     @PostMapping("/sign-in")
