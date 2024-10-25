@@ -54,6 +54,9 @@ public class User extends BaseTimeEntity implements Serializable {
     @Column(nullable = false, name = "tot_power_gen")
     private int totPowerGen = 0;
 
+    @Column(name="refresh_token")
+    private String refreshToken;
+
     protected User() {
     }
 

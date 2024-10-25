@@ -28,6 +28,10 @@ public class AuthenticationService {
 
         String accessToken = jwtTokenProvider.generateAccessToken(user.getUuid());
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUuid());
+
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
+
         return new TokenResponse(accessToken, refreshToken);
     }
 
@@ -36,5 +40,13 @@ public class AuthenticationService {
         String uuid = jwtTokenProvider.extractUuidFromRefreshToken(refreshToken);
         String newAccessToken = jwtTokenProvider.generateAccessToken(uuid);
         return new TokenResponse(newAccessToken, refreshToken);
+    }
+
+    public void invalidateRefreshToken(String uuid) {
+        User user = userRepository.findByUuid(uuid)
+            .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
+
+        user.setRefreshToken(null);
+        userRepository.save(user);
     }
 }

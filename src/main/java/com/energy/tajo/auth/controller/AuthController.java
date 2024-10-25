@@ -12,7 +12,7 @@ import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.dto.request.UserCreateRequest;
 import com.energy.tajo.user.repository.UserRepository;
 import com.energy.tajo.user.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,8 +75,6 @@ public class AuthController {
         User user = User.of(checkedUuid, encryptedPassword, request.name(), request.email(), request.consentStatus());
         user.setPhoneNum(verifiedPhoneNumber);
         userRepository.save(user);
-
-        // JWT 생성
         String token = jwtTokenProvider.generateAccessToken(user.getUuid());
         return ResponseEntity.ok(token);
     }
@@ -92,10 +90,10 @@ public class AuthController {
     // 로그아웃
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout(HttpServletResponse response) {
-        TokenResponse.expireAccessToken(response);
+    public void logout(@RequestBody Map<String, String> requestBody) {
+        String uuid = requestBody.get("uuid");
+        authenticationService.invalidateRefreshToken(uuid);
     }
-
 
     // 토큰 갱신
     @PostMapping("/refresh")
