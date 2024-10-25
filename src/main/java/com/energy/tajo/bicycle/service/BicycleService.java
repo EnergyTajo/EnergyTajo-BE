@@ -1,7 +1,7 @@
 package com.energy.tajo.bicycle.service;
 
 import com.energy.tajo.bicycle.domain.Bicycle;
-import com.energy.tajo.bicycle.dto.response.BicycleResponseDto;
+import com.energy.tajo.bicycle.dto.response.BicycleResponse;
 import com.energy.tajo.bicycle.repository.BicycleRepository;
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
@@ -20,7 +20,7 @@ public class BicycleService {
     }
 
     // QR 코드로 자전거 정보 조회 및 검증 로직
-    public BicycleResponseDto getBicycleInfo(String bicycleId) {
+    public BicycleResponse getBicycleInfo(String bicycleId) {
         validateBicycleId(bicycleId);
         Bicycle bicycle = findBicycleById(bicycleId);
 
@@ -31,7 +31,7 @@ public class BicycleService {
             throw new EnergyException(ErrorCode.BICYCLE_ALREADY_IN_USE);
         }
 
-        return new BicycleResponseDto(bicycle);
+        return new BicycleResponse(bicycle);
     }
 
     // 배터리 상태 업데이트

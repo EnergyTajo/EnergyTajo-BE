@@ -7,14 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BicycleResponseDto {
+public class BicycleResponse {
     private String bicycleId;
     private boolean active;
     private int batteryStat;
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public BicycleResponseDto(Bicycle bicycle) {
+    public BicycleResponse(Bicycle bicycle) {
         this.bicycleId = bicycle.getBicycleId();
         this.active = bicycle.isActive();
         this.batteryStat = bicycle.getBatteryStat();
