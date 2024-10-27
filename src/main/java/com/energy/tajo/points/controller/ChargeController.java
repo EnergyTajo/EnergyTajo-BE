@@ -24,7 +24,6 @@ public class ChargeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticatedUserUuid = (String) authentication.getPrincipal();
 
-        // 로그인된 사용자의 UUID로 내역 조회
         List<ChargeResponse> pointsTransactions = chargeService.getPointsTransactions(authenticatedUserUuid);
         return ResponseEntity.ok(pointsTransactions);
     }

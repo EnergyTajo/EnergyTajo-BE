@@ -60,23 +60,18 @@ public class AccountService {
             throw new EnergyException(ErrorCode.INSUFFICIENT_POINTS);
         }
 
-        // 계좌 조회 및 업데이트
         Account account = accountRepository.findByAccountNum(request.accountNum())
             .orElseThrow(() -> new EnergyException(ErrorCode.ACCOUNT_NOT_FOUND));
 
-        // 포인트 차감 및 계좌 잔액 업데이트
         user.setPoints(user.getPoints() - request.amount());
         account.setBalance(account.getBalance() + request.amount());
 
-        // 계좌번호의 마지막 4자리 추출
         String lastFourDigits = account.getAccountNum().length() > 4 ?
             account.getAccountNum().substring(account.getAccountNum().length() - 4) : account.getAccountNum();
 
-        // 포인트 거래 내역 저장 (포인트 차감)
         Charge pointSpentTransaction = Charge.of(user, request.amount(), user.getPoints(), lastFourDigits);
         chargeRepository.save(pointSpentTransaction);
 
-        // 계좌 업데이트 및 사용자 업데이트
         accountRepository.save(account);
         userRepository.save(user);
     }

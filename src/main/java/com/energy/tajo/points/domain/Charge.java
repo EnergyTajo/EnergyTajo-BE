@@ -23,10 +23,10 @@ public class Charge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="points_spent")
     private int pointsSpent;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name="transaction_date")
     private LocalDateTime transactionDate;
 
     @Column(nullable = false, name="total_points_after_transaction")
