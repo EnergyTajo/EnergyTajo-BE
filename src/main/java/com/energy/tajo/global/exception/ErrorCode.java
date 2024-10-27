@@ -36,6 +36,9 @@ public enum ErrorCode {
     BICYCLE_NOT_FOUND(BAD_REQUEST, "자전거를 찾을 수 없습니다."),
     INVALID_QR_CODE(BAD_REQUEST, "올바르지 않은 QR 코드가 입니다."),
     CARD_ALREADY_REGISTERED(BAD_REQUEST, "이미 등록된 카드입니다."),
+    ACCOUNT_NOT_FOUND(BAD_REQUEST,"등록되어 있지 않은 계좌입니다."),
+    ACCOUNT_ALREADY_EXISTS(BAD_REQUEST, "이미 등록된 계좌입니다."),
+    INSUFFICIENT_POINTS(BAD_REQUEST, "포인트가 부족합니다."),
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),

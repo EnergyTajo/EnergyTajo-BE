@@ -11,13 +11,12 @@ import com.energy.tajo.ride.repository.RideRepository;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.repository.UserRepository;
 import com.energy.tajo.user.service.UserService;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 
 @Service
@@ -124,6 +123,6 @@ public class RideService {
         List<Ride> rides = rideRepository.findAllByUserIdOrderByStartRideDateDesc(userUuid);
         return rides.stream()
             .map(RideUsageHistory::new)
-            .collect(Collectors.toList());
+            .toList();
     }
 }
