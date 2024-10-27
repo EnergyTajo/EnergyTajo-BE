@@ -1,4 +1,4 @@
-package com.energy.tajo.points.domain;
+package com.energy.tajo.charge.domain;
 
 import com.energy.tajo.user.domain.User;
 import jakarta.persistence.Column;

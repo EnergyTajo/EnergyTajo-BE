@@ -1,9 +1,9 @@
-package com.energy.tajo.points.service;
+package com.energy.tajo.charge.service;
 
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
-import com.energy.tajo.points.dto.response.ChargeResponse;
-import com.energy.tajo.points.repository.ChargeRepository;
+import com.energy.tajo.charge.dto.response.ChargeResponse;
+import com.energy.tajo.charge.repository.ChargeRepository;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.repository.UserRepository;
 import java.util.List;

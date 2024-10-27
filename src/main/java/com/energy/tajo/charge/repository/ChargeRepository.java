@@ -1,6 +1,6 @@
-package com.energy.tajo.points.repository;
+package com.energy.tajo.charge.repository;
 
-import com.energy.tajo.points.domain.Charge;
+import com.energy.tajo.charge.domain.Charge;
 import com.energy.tajo.user.domain.User;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

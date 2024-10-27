@@ -18,7 +18,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 public class RideService {
@@ -96,7 +95,6 @@ public class RideService {
         return rideRepository.save(ride);
     }
 
-
     // 거리 계산 (1초마다 5m 증가)
     private int calculateDistance(long secondsUsed) {
         return (int) (secondsUsed) * 5;
@@ -116,7 +114,6 @@ public class RideService {
     private int calculatePoints(int powerGenerated) {
         return powerGenerated / 10;
     }
-
 
     // 이용 내역 출력
     public List<RideUsageHistory> getRideUsageHistory(String userUuid) {
