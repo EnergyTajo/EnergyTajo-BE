@@ -7,9 +7,7 @@ import lombok.Getter;
 public class UserCreateResponse {
 
     private final String uuid;
-
     private final String name;
-
     private final String email;
 
     private UserCreateResponse(final String uuid, final String name, final String email) {
