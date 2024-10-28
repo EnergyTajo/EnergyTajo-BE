@@ -21,7 +21,7 @@ public class ChargeService {
     public List<ChargeResponse> getPointsTransactions(String userId) {
         User user = userRepository.findByUuid(userId)
             .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
-        return chargeRepository.findByUser(user).stream()
+        return chargeRepository.findByUserOrderByTransactionDateDesc(user).stream()
             .map(ChargeResponse::from)
             .toList();
     }

@@ -32,17 +32,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(uuid, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
-
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             // SecurityContext 설정
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            // 인증 로그 출력 - 추가
-            if (SecurityContextHolder.getContext().getAuthentication() != null) {
-                logger.debug("Successfully authenticated user: " + uuid);
-                logger.debug("Authorities: " + SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-            }
         }
 
         chain.doFilter(request, response);

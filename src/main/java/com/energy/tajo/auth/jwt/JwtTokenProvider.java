@@ -103,7 +103,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // 특정 클레임 추출 (For more flexibility)
+    // 특정 클레임 추출
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -117,7 +117,6 @@ public class JwtTokenProvider {
             .parseClaimsJws(token)
             .getBody();
     }
-
 
     // 토큰 만료 여부 확인
     public boolean isTokenExpired(String token) {
