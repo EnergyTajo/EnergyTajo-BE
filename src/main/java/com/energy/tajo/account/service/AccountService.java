@@ -6,8 +6,8 @@ import com.energy.tajo.account.dto.response.AccountResponse;
 import com.energy.tajo.account.repository.AccountRepository;
 import com.energy.tajo.global.exception.EnergyException;
 import com.energy.tajo.global.exception.ErrorCode;
-import com.energy.tajo.points.domain.Charge;
-import com.energy.tajo.points.repository.ChargeRepository;
+import com.energy.tajo.charge.domain.Charge;
+import com.energy.tajo.charge.repository.ChargeRepository;
 import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.repository.UserRepository;
 import java.util.List;
@@ -23,10 +23,11 @@ public class AccountService {
     private final UserRepository userRepository;
     private final ChargeRepository chargeRepository;
 
+
     // 계좌 생성
     @Transactional
-    public AccountResponse createAccount(AccountRequest request) {
-        User user = userRepository.findByUuid(request.userId())
+    public AccountResponse createAccount(AccountRequest request, String uuid) {
+        User user = userRepository.findByUuid(uuid)
             .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
 
         boolean accountExists = accountRepository.findByAccountNumAndBankName(request.accountNum(), request.bankName()).isPresent();
@@ -41,8 +42,8 @@ public class AccountService {
     }
 
     // 유저의 계좌 리스트 조회
-    public List<AccountResponse> getAccountsByUser(String userId) {
-        User user = userRepository.findByUuid(userId)
+    public List<AccountResponse> getAccountsByUser(String uuid) {
+        User user = userRepository.findByUuid(uuid)
             .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
 
         return accountRepository.findByUser(user).stream()
@@ -52,8 +53,8 @@ public class AccountService {
 
     // 포인트 전환 (포인트 -> 동백전 입금)
     @Transactional
-    public void deposit(AccountRequest request) {
-        User user = userRepository.findByUuid(request.userId())
+    public void deposit(AccountRequest request, String uuid) {
+        User user = userRepository.findByUuid(uuid)
             .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
 
         if (user.getPoints() < request.amount()) {

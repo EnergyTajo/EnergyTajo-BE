@@ -14,9 +14,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
         throws IOException {
-        response.setContentType("text/plain;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("로그인이 필요합니다.");
+        response.getWriter().write("{\"error\": \"로그인이 필요합니다.\", \"message\": \"" + authException.getMessage() + "\"}");
     }
+
 }

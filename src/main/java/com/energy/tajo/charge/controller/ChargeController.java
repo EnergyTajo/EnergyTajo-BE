@@ -1,7 +1,7 @@
-package com.energy.tajo.points.controller;
+package com.energy.tajo.charge.controller;
 
-import com.energy.tajo.points.dto.response.ChargeResponse;
-import com.energy.tajo.points.service.ChargeService;
+import com.energy.tajo.charge.dto.response.ChargeResponse;
+import com.energy.tajo.charge.service.ChargeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +18,13 @@ public class ChargeController {
 
     private final ChargeService chargeService;
 
-    // 충전 내역 조회
+    // 로그인된 사용자 자신의 충전 내역 조회
     @GetMapping
-    public ResponseEntity<List<ChargeResponse>> getPointsTransactions() {
+    public ResponseEntity<List<ChargeResponse>> getMyChargeTransactions() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticatedUserUuid = (String) authentication.getPrincipal();
 
-        List<ChargeResponse> pointsTransactions = chargeService.getPointsTransactions(authenticatedUserUuid);
-        return ResponseEntity.ok(pointsTransactions);
+        List<ChargeResponse> chargeTransactions = chargeService.getPointsTransactions(authenticatedUserUuid);
+        return ResponseEntity.ok(chargeTransactions);
     }
 }

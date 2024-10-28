@@ -1,6 +1,6 @@
-package com.energy.tajo.points.dto.response;
+package com.energy.tajo.charge.dto.response;
 
-import com.energy.tajo.points.domain.Charge;
+import com.energy.tajo.charge.domain.Charge;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

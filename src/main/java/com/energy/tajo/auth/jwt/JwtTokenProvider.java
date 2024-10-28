@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -53,6 +54,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
             .setSubject(uuid)
+            .claim("authorities", List.of("ROLE_USER"))
             .setIssuedAt(now)
             .setExpiration(expiryDate)
             .signWith(generatedSecretKey)
@@ -101,7 +103,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // 특정 클레임 추출 (For more flexibility)
+    // 특정 클레임 추출
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -115,7 +117,6 @@ public class JwtTokenProvider {
             .parseClaimsJws(token)
             .getBody();
     }
-
 
     // 토큰 만료 여부 확인
     public boolean isTokenExpired(String token) {
