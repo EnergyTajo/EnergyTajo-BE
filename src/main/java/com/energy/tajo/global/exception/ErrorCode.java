@@ -40,7 +40,7 @@ public enum ErrorCode {
     ACCOUNT_ALREADY_EXISTS(BAD_REQUEST, "이미 등록된 계좌입니다."),
     INSUFFICIENT_POINTS(BAD_REQUEST, "포인트가 부족합니다."),
     UNAUTHORIZED_ACCESS(BAD_REQUEST,"사용자가 일치하지 않습니다."),
-    RIDE_ALREADY_ENDED(BAD_REQUEST, "해당 라이딩은 이미 종료되었습니다.")
+    RIDE_ALREADY_ENDED(BAD_REQUEST, "해당 라이딩은 이미 종료되었습니다."),
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),
