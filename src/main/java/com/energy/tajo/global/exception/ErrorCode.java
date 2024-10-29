@@ -29,7 +29,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(BAD_REQUEST,"User를 찾을 수 없습니다."),
     CONSENT_REQUIRED(BAD_REQUEST,"(필수) 약관 동의가 되지 않았습니다."),
     EXPIRED_TOKEN(BAD_REQUEST, "만료된 토큰 입니다."),
-    INVALID_PW(BAD_REQUEST,"유효하지 않은 비밀번호 입니다."),
+    INVALID_PW(BAD_REQUEST,"비밀번호가 일치하지 않습니다."),
     INVALID_REFRESH_TOKEN(BAD_REQUEST,"유효하지 않은 토큰 입니다."),
     RIDE_NOT_FOUND(BAD_REQUEST, "이용 기록을 찾을 수 없습니다"),
     BICYCLE_ALREADY_IN_USE(BAD_REQUEST, "사용 중인 자전거입니다."),
