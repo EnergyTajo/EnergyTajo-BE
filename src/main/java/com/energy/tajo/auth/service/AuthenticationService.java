@@ -20,7 +20,7 @@ public class AuthenticationService {
     public TokenResponse login(String uuid, String password) {
 
         User user = userRepository.findByUuid(uuid)
-            .orElseThrow(() -> new EnergyException(ErrorCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new EnergyException(ErrorCode.ID_NOT_FOUND));
 
         if (!PasswordEncoderSHA256.matches(password, user.getPw())) {
             throw new EnergyException(ErrorCode.INVALID_PW);
