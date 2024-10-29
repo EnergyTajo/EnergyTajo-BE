@@ -24,7 +24,7 @@ public enum ErrorCode {
     ALREADY_VERIFIED(BAD_REQUEST, "이미 인증되었습니다."),
     TWILIO_ERROR(BAD_REQUEST, "Twilio 서비스 오류가 발생했습니다."),
     ID_DUPLICATION_CHECK_NOT_DONE(BAD_REQUEST,"ID 중복 체크가 되지 않았습니다."),
-    ID_NOT_FOUND(BAD_REQUEST, "ID를 찾을 수 없습니다."),
+    ID_NOT_FOUND(BAD_REQUEST, "가입되지 않은 ID 입니다."),
     VERIFICATION_CODE_EXPIRED(BAD_REQUEST,"인증코드 만료"),
     USER_NOT_FOUND(BAD_REQUEST,"User를 찾을 수 없습니다."),
     CONSENT_REQUIRED(BAD_REQUEST,"(필수) 약관 동의가 되지 않았습니다."),
@@ -40,7 +40,7 @@ public enum ErrorCode {
     ACCOUNT_ALREADY_EXISTS(BAD_REQUEST, "이미 등록된 계좌입니다."),
     INSUFFICIENT_POINTS(BAD_REQUEST, "포인트가 부족합니다."),
     UNAUTHORIZED_ACCESS(BAD_REQUEST,"사용자가 일치하지 않습니다."),
-    RIDE_ALREADY_ENDED(BAD_REQUEST, "해당 라이딩은 이미 종료되었습니다."),
+    RIDE_ALREADY_ENDED(BAD_REQUEST, "해당 라이딩은 이미 종료되었습니다.")
 
     // 500 서버 에러
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "서버에 문제가 발생했습니다."),
