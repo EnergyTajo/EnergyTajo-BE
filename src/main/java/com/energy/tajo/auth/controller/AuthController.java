@@ -90,10 +90,12 @@ public class AuthController {
     // 로그아웃
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logout(@RequestBody Map<String, String> requestBody) {
-        String uuid = requestBody.get("uuid");
+    public void logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring("Bearer ".length());
+        String uuid = jwtTokenProvider.extractUuidFromAccessToken(token);
         authenticationService.invalidateRefreshToken(uuid);
     }
+
 
     // 토큰 갱신
     @PostMapping("/refresh")
