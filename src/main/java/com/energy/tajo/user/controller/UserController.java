@@ -21,10 +21,10 @@ public class UserController {
 
     @GetMapping("/userData")
     public ResponseEntity<UserDataResponse> getUserData(Principal principal) {
+
         String uuid = principal.getName();
         User user = userService.findUserById(uuid);
-
-        UserDataResponse response = new UserDataResponse(user.getPoints(), user.getTotPowerGen());
+        UserDataResponse response = new UserDataResponse(user.getPoints(), user.getTotPowerGen(), user.getName());
         return ResponseEntity.ok(response);
     }
 }
