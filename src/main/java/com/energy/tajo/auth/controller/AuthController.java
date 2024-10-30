@@ -12,7 +12,7 @@ import com.energy.tajo.user.domain.User;
 import com.energy.tajo.user.dto.request.UserCreateRequest;
 import com.energy.tajo.user.repository.UserRepository;
 import com.energy.tajo.user.service.UserService;
-import java.util.Map;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 @RestController
