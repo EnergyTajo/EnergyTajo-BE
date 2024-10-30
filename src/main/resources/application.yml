@@ -21,7 +21,11 @@ spring:
       - classpath:config/application-twilio.yml
 
 logging:
+  file:
+    name: /var/log/energytajo/app.log
   level:
+    root: INFO
+    org.springframework: DEBUG
     org.springframework.security: TRACE
     org.springframework.beans.factory.support: DEBUG
     org.springframework.context.annotation: DEBUG
