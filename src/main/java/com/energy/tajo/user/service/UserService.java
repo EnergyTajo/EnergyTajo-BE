@@ -23,7 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-    private static final String NAME_REGEX = "^[가-힣]{2,10}$";
+    private static final String NAME_REGEX = "^(?!.*[ㄱ-ㅎㅏ-ㅣ])[가-힣]{2,10}$";
     private static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?=\\S+$).{8,20}$";
 
     // 이메일 형식 검증
