@@ -34,7 +34,7 @@ public enum ErrorCode {
     RIDE_NOT_FOUND(BAD_REQUEST, "이용 기록을 찾을 수 없습니다"),
     BICYCLE_ALREADY_IN_USE(BAD_REQUEST, "사용 중인 자전거입니다."),
     BICYCLE_NOT_FOUND(BAD_REQUEST, "자전거를 찾을 수 없습니다."),
-    INVALID_QR_CODE(BAD_REQUEST, "올바르지 않은 QR 코드가 입니다."),
+    INVALID_QR_CODE(BAD_REQUEST, "올바르지 않은 QR 코드입니다."),
     CARD_ALREADY_REGISTERED(BAD_REQUEST, "이미 등록된 카드입니다."),
     ACCOUNT_NOT_FOUND(BAD_REQUEST,"등록되어 있지 않은 계좌입니다."),
     ACCOUNT_ALREADY_EXISTS(BAD_REQUEST, "이미 등록된 계좌입니다."),
