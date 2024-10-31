@@ -1,18 +1,19 @@
 spring:
   profiles:
     include:
-    - datasource
+      - datasource
     active: datasource, twilio, secrets
   jpa:
     hibernate:
       ddl-auto: update
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
-
     properties:
       hibernate:
         format_sql: true
         show_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
     open-in-view: false
   config:
     import:
@@ -33,7 +34,6 @@ logging:
 server:
   address: 0.0.0.0
   port: 8080
-
 
 jwt:
   secret: FNYrNLeeGce28CcuoIlrdYrCNZgRg3MAMgbfkVDhmj4=
