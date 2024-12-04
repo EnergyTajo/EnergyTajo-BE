@@ -16,7 +16,7 @@ https://energytajo.site (모바일 필수 - 사파리 권장)
 - Lombok
 - Twilio SDK: 8.27.0
 - Libphonenumber: 8.12.30
-- JSON Web Token (jjwt): 0.11.5
+- JSON Web Token (jwt): 0.11.5
 - Jakarta Servlet API: 5.0.0
 
 ## 기술 스택
