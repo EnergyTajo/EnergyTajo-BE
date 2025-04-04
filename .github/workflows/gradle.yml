@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "build/libs/*.jar"
-          target: "~"  # 홈 디렉토리에 복사
+          target: "~"
           rm: true
 
   CD:
