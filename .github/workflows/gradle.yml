@@ -33,7 +33,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Copy build file
+      - name: Copy build file to home directory
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "build/libs/*.jar"
-          target: "~source/build/libs"
+          target: "source/build/libs"
           rm: true
 
   CD:
@@ -56,27 +56,31 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            echo "#### Enter the test-was section ####"
+            echo "#### Enter the deployment section ####"
 
-            SOURCE_DIR=source/build/libs
-            FILE_NAME=`find $SOURCE_DIR/*.jar -printf "%f\n"`
-            PID=`ps -ef | grep 'java -jar' | grep -v "grep" | awk '{print $2}'`
-            LOG_FILE=source/build/logfile_$(date +"%Y%m%d_%H%M%S").log
+            FILE_NAME=$(find ~ -maxdepth 1 -name "*.jar" | head -n 1)
+            PID=$(ps -ef | grep 'java -jar' | grep -v "grep" | awk '{print $2}')
+            LOG_DIR=~/source/build
+            LOG_FILE=$LOG_DIR/logfile_$(date +"%Y%m%d_%H%M%S").log
+
+            mkdir -p $LOG_DIR
+
             if [ -z "$PID" ]; then
-                echo "#### THERE IS NO PROCESS ####"
+              echo "#### NO RUNNING PROCESS ####"
             else
-                echo "#### KILL $PID ####"
-                kill $PID
+              echo "#### KILLING PROCESS $PID ####"
+              kill $PID
             fi
 
-            echo "#### CREATE symbolic link ~/EnergyTajo.jar ####"
-            ln -sf $SOURCE_DIR/$FILE_NAME ~/EnergyTajo.jar
+            echo "#### LINKING $FILE_NAME to ~/EnergyTajo.jar ####"
+            ln -sf $FILE_NAME ~/EnergyTajo.jar
+            ln -sf ~/EnergyTajo.jar ~/source/build/libs/EnergyTajo.jar
 
-            echo "#### RUN $SOURCE_DIR/$FILE_NAME ####"
-            java -jar $SOURCE_DIR/$FILE_NAME > $LOG_FILE 2>&1 &
+            echo "#### RUNNING JAR ####"
+            nohup java -jar ~/EnergyTajo.jar > $LOG_FILE 2>&1 &
 
       - name: Verify HTTPS Deployment
         run: |
           echo "#### Checking HTTPS response ####"
-          sleep 10  # Wait for the server to start
-          curl -I https://your-domain.com || echo "#### HTTPS check failed ####"
+          sleep 10
+          curl -I https://energytajo.site || echo "#### HTTPS check failed ####"
