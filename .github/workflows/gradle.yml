@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "build/libs/*.jar"
-          target: "~"
+          target: "source/build/libs"
           rm: true
 
   CD:
