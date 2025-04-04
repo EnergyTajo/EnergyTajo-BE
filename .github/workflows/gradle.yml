@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "build/libs/*.jar"
-          target: "source"
+          target: "~source/build/libs"
           rm: true
 
   CD:
@@ -68,6 +68,10 @@ jobs:
                 echo "#### KILL $PID ####"
                 kill $PID
             fi
+
+            echo "#### CREATE symbolic link ~/EnergyTajo.jar ####"
+            ln -sf $SOURCE_DIR/$FILE_NAME ~/EnergyTajo.jar
+
             echo "#### RUN $SOURCE_DIR/$FILE_NAME ####"
             java -jar $SOURCE_DIR/$FILE_NAME > $LOG_FILE 2>&1 &
 
