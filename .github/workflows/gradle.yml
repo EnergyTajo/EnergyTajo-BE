@@ -2,9 +2,9 @@ name: EnergyTajo CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: write
@@ -33,16 +33,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Copy build file to home directory
-        uses: appleboy/scp-action@master
+      - name: Upload using rsync
+        uses: burnett01/rsync-deployments@5.2
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "build/libs/*.jar"
-          target: "~/source"
-          rm: true
+          switches: -avzr --delete
+          path: build/libs/
+          remote_path: ~/source/build/libs/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   CD:
     needs: CI
@@ -58,7 +57,7 @@ jobs:
           script: |
             echo "#### Enter the deployment section ####"
 
-            FILE_NAME=$(find ~ -maxdepth 1 -name "*.jar" | head -n 1)
+            FILE_NAME=$(find ~/source/build/libs -maxdepth 1 -name "*.jar" | head -n 1)
             PID=$(ps -ef | grep 'java -jar' | grep -v "grep" | awk '{print $2}')
             LOG_DIR=~/source/build
             LOG_FILE=$LOG_DIR/logfile_$(date +"%Y%m%d_%H%M%S").log
@@ -74,7 +73,6 @@ jobs:
 
             echo "#### LINKING $FILE_NAME to ~/EnergyTajo.jar ####"
             ln -sf $FILE_NAME ~/EnergyTajo.jar
-            ln -sf ~/EnergyTajo.jar ~/source/build/libs/EnergyTajo.jar
 
             echo "#### RUNNING JAR ####"
             nohup java -jar ~/EnergyTajo.jar > $LOG_FILE 2>&1 &
