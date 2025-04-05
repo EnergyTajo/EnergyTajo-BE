@@ -33,15 +33,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Upload using rsync
-        uses: burnett01/rsync-deployments@5.2
+      - name: Copy build file to home directory
+        uses: appleboy/scp-action@master
         with:
-          switches: -avr --delete
-          path: build/libs/
-          remote_path: ~/source/build/libs/
-          remote_host: ${{ secrets.SSH_HOST }}
-          remote_user: ${{ secrets.SSH_USERNAME }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "build/libs/*.jar"
+          target: "~/source"
+          rm: true
+
 
   CD:
     needs: CI
