@@ -117,15 +117,21 @@ jobs:
       - name: Grant Permission
         run: chmod +x gradlew
 
-      - name: Build
+      - name: Build (Skip Tests for now)
         run: ./gradlew clean build -x test
 
-      - name: Upload JAR with SCP
-        uses: appleboy/scp-action@master
+      - name: Upload with rsync
+        uses: burnett01/rsync-deployments@5.2
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "build/libs/*.jar"
-          target: "~/source/build/libs"
+          switches: -avzr --delete
+          path: build/libs/
+          remote_path: ~/source/build/libs/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Upload JAR to GitHub Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: build/libs/*.jar
