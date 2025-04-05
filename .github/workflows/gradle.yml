@@ -92,7 +92,6 @@
 
 
 
-
 name: EnergyTajo CI/CD
 
 on:
@@ -117,7 +116,7 @@ jobs:
       - name: Grant Permission
         run: chmod +x gradlew
 
-      - name: Build (Skip Tests for now)
+      - name: Build without Tests
         run: ./gradlew clean build -x test
 
       - name: Upload with rsync
@@ -131,7 +130,7 @@ jobs:
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Upload JAR to GitHub Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: build-artifact
           path: build/libs/*.jar
